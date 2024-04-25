@@ -1,0 +1,451 @@
+.header {
+  display: flex;
+  border-bottom: 1.5px solid black;
+  background-color: yellow;
+}
+@keyframes fadinglogo {
+  20% {
+    opacity: 0%;
+  }
+  40% {
+    opacity: 30%;
+  }
+  60% {
+    opacity: 60%;
+  }
+  80% {
+    opacity: 80%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes fadingburgers {
+  10% {
+    opacity: 0%;
+  }
+  20% {
+    opacity: 20%;
+  }
+  40% {
+    opacity: 30%;
+  }
+  60% {
+    opacity: 60%;
+  }
+  80% {
+    opacity: 80%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.logo {
+  margin: 0 auto;
+  height: 70px;
+  animation-name: fadinglogo;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  position: relative;
+}
+
+.text {
+  padding: 25px 25px;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  list-style-type: none;
+}
+
+.text:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.title {
+  display: flex;
+  position: relative;
+}
+
+@keyframes burgers {
+  0% {
+    color: red;
+    letter-spacing: 3.5px;
+  }
+  15% {
+    color: purple;
+    letter-spacing: 3.5px;
+  }
+  25% {
+    color: violet;
+    letter-spacing: 3.5px;
+  }
+  35% {
+    color: palegreen;
+    letter-spacing: 3.5px;
+  }
+  50% {
+    color: blue;
+    letter-spacing: 3.5px;
+  }
+  65% {
+    color: rgb(66, 255, 220);
+    letter-spacing: 3.5px;
+  }
+  80% {
+    color: chartreuse;
+    letter-spacing: 3.5px;
+  }
+  100% {
+    color: red;
+    letter-spacing: 3.5px;
+  }
+}
+
+@keyframes borders {
+  0% {
+    border: red;
+    letter-spacing: 3.5px;
+  }
+  15% {
+    border: purple;
+    letter-spacing: 3.5px;
+  }
+  25% {
+    border: violet;
+    letter-spacing: 3.5px;
+  }
+  35% {
+    border: palegreen;
+    letter-spacing: 3.5px;
+  }
+  50% {
+    border: blue;
+    letter-spacing: 3.5px;
+  }
+  65% {
+    border: rgb(66, 255, 220);
+    letter-spacing: 3.5px;
+  }
+  80% {
+    border: chartreuse;
+    letter-spacing: 3.5px;
+  }
+  100% {
+    border: red;
+    letter-spacing: 3.5px;
+  }
+}
+
+.main-title {
+  position: relative;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  display: flex;
+  animation-name: burgers;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  font-size: 40px;
+  animation-fill-mode: backwards;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  font-weight: 800;
+  margin: 0 auto;
+}
+body {
+  background-color: black;
+  color: white;
+}
+.description {
+  letter-spacing: 2.5px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+.burger {
+  max-width: 290px;
+  max-height: 280px;
+  display: flex;
+  position: relative;
+  justify-content: space-evenly;
+  animation-name: fadingburgers;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+#img-container {
+  display: flex;
+}
+.btn {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  height: 160px;
+  width: 370px;
+  background-color: black;
+  border-radius: 1%;
+  font-size: 50px;
+  border: none;
+  color: white;
+  text-decoration: none;
+}
+.btn:hover {
+  color: yellow;
+}
+footer {
+  height: 70px;
+  background-color: yellow;
+  border-color: yellow;
+  width: 100vw;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  text-decoration: none;
+  color: black;
+}
+#contact {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-items: center;
+  width: 20%;
+  font-weight: 600;
+  left: 200px;
+  position: relative;
+  top: 100px;
+}
+
+#text {
+  width: 226px;
+}
+
+#contact-title {
+  display: flex;
+  gap: 2rem;
+  position: relative;
+  justify-content: center;
+  word-wrap: break-word;
+  width: 350px;
+  text-overflow: clip;
+  margin: 0 auto;
+  top: -140px;
+  left: -150px;
+  font-size: 25px;
+  font-weight: 900;
+  padding-bottom: 50px;
+}
+.main-title-contact {
+  position: relative;
+  justify-content: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  display: flex;
+  animation-name: burgers;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  font-size: 40px;
+  animation-fill-mode: backwards;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  font-weight: 800;
+  text-align: center;
+  padding-top: 30px;
+}
+
+#contact-btn {
+  width: 100px;
+  margin: 0 auto;
+  height: 40px;
+  border: none;
+  background-color: black;
+  color: yellow;
+  font-size: 15px;
+  font-weight: 700;
+}
+#contact-btn:hover {
+  font-size: 20px;
+  font-weight: 600;
+}
+#create-container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 40%;
+  text-align: center;
+}
+#create-container > select {
+  background-color: black;
+  color: yellow;
+  font-size: 16px;
+}
+#create-container > label {
+  letter-spacing: 3px;
+  font-size: 22px;
+}
+.about {
+  padding-top: 10px;
+  padding-bottom: 60px;
+  padding-left: 25px;
+  padding-right: 25px;
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-weight: 400;
+}
+li {
+  list-style-type: none;
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+.footer-text {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  list-style-type: none;
+}
+
+.create-container {
+  background-color: black;
+  color: yellow;
+  font-size: 16px;
+  border: 2px solid yellow;
+}
+#text {
+  width: auto;
+}
+
+::placeholder {
+  color: yellow;
+  opacity: 55%;
+  text-align: center;
+}
+
+#create-container-2 {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 22px;
+}
+
+#create-container-3 {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 22px;
+  padding: 56px;
+}
+
+#display-burger {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 50%;
+  height: 500px;
+  margin: 0 auto;
+  color: yellow;
+  border: 3px solid yellow;
+  text-indent: 10px;
+  justify-content: center;
+  padding: 110px;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  font-weight: 900;
+  align-items: center;
+  text-align: center;
+}
+
+#editburger-options {
+  width: 100px;
+  position: relative;
+}
+.btn-delete {
+  padding-bottom: 8px;
+  display: flex;
+  position: relative;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  background-color: black;
+  border-radius: 1%;
+  font-size: 30px;
+  border: none;
+  color: red;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+}
+.btn-save {
+  padding-top: 8px;
+  display: flex;
+  position: relative;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  background-color: black;
+  border-radius: 1%;
+  font-size: 30px;
+  border: none;
+  color: rgb(70, 70, 255);
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+}
+
+.editordelete {
+  border: 2px solid yellow;
+  margin: 3px;
+}
+.editordelete > .btn-delete:hover {
+  color: yellow;
+}
+.editordelete > .btn-save:hover {
+  color: yellow;
+}
+
+.about {
+  font-size: 24px;
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+  text-align: center;
+  color: red;
+}
+
+#edit-name {
+  position: relative;
+  top: -5px;
+  align-items: center;
+}
+
+.editburger-options {
+  background-color: black;
+  color: yellow;
+  border: 1px solid yellow;
+}
+
+#edit-name {
+  background-color: black;
+  color: yellow;
+  border: 1px solid yellow;
+  border-radius: 10px;
+}
+#edit-mail {
+  background-color: black;
+  color: yellow;
+  border: 1px solid yellow;
+  border-radius: 10px;
+}
