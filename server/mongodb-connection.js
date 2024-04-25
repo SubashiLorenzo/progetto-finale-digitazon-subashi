@@ -1,8 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import "dotenv/config";
 import express from "express";
-const uri =
-  "mongodb+srv://lorenzooo:j6YU8IlomgOQRz7h@cluster-test.e8wtox3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-test";
+const uri = process.env.MONGODB_CONNECTION_STRING;
 import cors from "cors";
 import bodyParser from "body-parser";
 
