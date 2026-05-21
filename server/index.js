@@ -3,25 +3,25 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import {
   addBurgerToDb,
-  getBurger,
+  getBurgersByEmail,
+  getBurgerById,
   updateBurgerToDb,
   removeBurgerFromDB,
   sendFormToDb,
 } from "./mongodb-connection.js";
-import { config } from "dotenv";
 
 const port = 3001;
-const app = express();
-app.use(bodyParser.json());
+const app = report || express();
+
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
 };
 
-//app.use(express.json())
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.post("/newburger", async (req, res) => {
   console.log("sono stato chiamato 2");
 
@@ -37,7 +37,7 @@ app.post("/newburger", async (req, res) => {
   let email = req.body.email;
   let nome = req.body.nome;
 
-  addBurgerToDb(
+  await addBurgerToDb(
     nome,
     email,
     patty,
@@ -48,7 +48,7 @@ app.post("/newburger", async (req, res) => {
     secondExtra,
     secondSauce,
     secondMeat,
-    secondVeggie
+    secondVeggie,
   );
 
   res.status(201).json({
@@ -78,75 +78,33 @@ app.post("/sendform", async (req, res) => {
   console.log(req.body.name);
   console.log(req.body.email);
   console.log(req.body);
-  sendFormToDb(nome, email, input);
+  await sendFormToDb(nome, email, input);
 
   res.status(201).json({ "Form inviato con successo": email });
 });
 
 app.get("/getBurgersByEmail/:email", async (req, res) => {
   console.log("sono stato chiamato get burgers");
-  let mail = req.params.email;
-  let result;
-  result = await getBurger(req.params.email).then(function (result) {
-    console.log("getburger: " + JSON.stringify(result));
-    res.send(result);
-  });
+  let result = await getBurgersByEmail(req.params.email);
+  console.log("getburger: " + JSON.stringify(result));
+  res.send(result);
 });
 
-app.delete("/deleteburger/:email", async (req, res) => {
-  console.log("sono stato chiamato delete");
-
-  let email = req.params.email;
-
-  console.log(email);
-  removeBurgerFromDB(email);
-
-  res.status(201).json({ "Form inviato con successo": email });
+app.get("/getBurgerById/:id", async (req, res) => {
+  let result = await getBurgerById(req.params.id);
+  res.send(result);
 });
 
-app.put("/updateburger/:email", async (req, res) => {
+app.put("/updateburger/:id", async (req, res) => {
   console.log("sono stato chiamato 3");
+  await updateBurgerToDb(req.params.id, req.body);
+  res.status(201).json({ msg: "Panino aggiornato con successo" });
+});
 
-  let patty = req.body.patty;
-  let meat = req.body.meat;
-  let veggie = req.body.veggie;
-  let sauce = req.body.sauce;
-  let extra = req.body.extra;
-  let secondExtra = req.body.secondExtra;
-  let secondMeat = req.body.secondProtein;
-  let secondVeggie = req.body.secondVeggie;
-  let secondSauce = req.body.secondSauce;
-  let email = req.body.email;
-  let name = req.body.name;
-
-  updateBurgerToDb(
-    name,
-    email,
-    patty,
-    meat,
-    sauce,
-    veggie,
-    extra,
-    secondExtra,
-    secondSauce,
-    secondMeat,
-    secondVeggie
-  );
-
-  res.status(201).json({
-    msg: "A new hamburger has been created!",
-    patty,
-    meat,
-    secondMeat,
-    veggie,
-    sauce,
-    extra,
-    secondSauce,
-    secondVeggie,
-    secondExtra,
-    email,
-    name,
-  });
+app.delete("/deleteburger/:id", async (req, res) => {
+  console.log("sono stato chiamato delete");
+  await removeBurgerFromDB(req.params.id);
+  res.status(201).json({ "Form inviato con successo": req.params.id });
 });
 
 app.listen(port, () => console.log("App is running on port", port));

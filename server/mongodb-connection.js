@@ -1,9 +1,7 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
 import "dotenv/config";
-import express from "express";
+
 const uri = process.env.MONGODB_CONNECTION_STRING;
-import cors from "cors";
-import bodyParser from "body-parser";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -12,17 +10,13 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-const app = express();
-const corsOptions = {
-  origin: "http://localhost:3001",
-  credentials: true,
-};
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(express.json());
-app.use(cors());
 
-await client.connect();
+try {
+  await client.connect();
+  console.log("Database connesso con successo");
+} catch (error) {
+  console.error("Connessione al DB non riuscita:", error.message);
+}
 
 export async function addBurgerToDb(
   nome,
@@ -35,9 +29,9 @@ export async function addBurgerToDb(
   secondExtra,
   secondSauce,
   secondMeat,
-  secondVeggie
+  secondVeggie,
 ) {
-  console.log("sono arrivato");
+  console.log("sono arrivato addBurger");
   let json = {
     Nome: nome,
     Pane: patty,
@@ -58,74 +52,57 @@ export async function addBurgerToDb(
   console.log(`New burger created: ${JSON.stringify(result)}`);
 }
 
-export async function removeBurgerFromDB(email) {
-  const result = await client
-    .db("BurgerDB")
-    .collection("CreatedBurgers")
-    .deleteMany({ Mail: email });
-  console.log(`New burger deleted from database: ${JSON.stringify(result)}`);
-  return JSON.stringify(result);
-}
-
-await client.connect();
-export async function sendFormToDb(nome, email, input) {
-  let json = {
-    nome: nome,
-    email: email,
-    input: input,
-  };
-  const result = await client
-
-    .db("BurgerDB")
-    .collection("FormData")
-    .insertOne(json);
-  console.log(`New form sent to database! ${JSON.stringify(result)}`);
-}
-
-await client.connect();
-export async function getBurger(email) {
-  //await client.connect();
-
-  const result = await client
+export async function getBurgersByEmail(email) {
+  return await client
     .db("BurgerDB")
     .collection("CreatedBurgers")
     .find({ Mail: email })
     .toArray();
-  console.log(`New burger found! ${JSON.stringify(result)}`);
-
-  return result;
 }
 
-export async function updateBurgerToDb(
-  nome,
-  email,
-  patty,
-  meat,
-  sauces,
-  veggies,
-  extra,
-  secondExtra,
-  secondSauce,
-  secondMeat,
-  secondVeggie
-) {
-  console.log("sono arrivato update");
-  let json = {
-    Nome: nome,
-    Pane: patty,
-    Proteina: meat,
-    SecondaProteina: secondMeat,
-    Verdure: veggies,
-    SecondaVerdura: secondVeggie,
-    Salse: sauces,
-    SecondaSalsa: secondSauce,
-    Extra: extra,
-    SecondoExtra: secondExtra,
-    Mail: email,
-  };
-  const result = await client
+export async function getBurgerById(id) {
+  return await client
     .db("BurgerDB")
     .collection("CreatedBurgers")
-    .replaceOne({ Mail: email }, json);
-  console.log(`New burger updated: ${JSON.stringify(result)}`);
+    .findOne({ _id: new ObjectId(id) });
+}
+
+export async function updateBurgerToDb(id, burgerData) {
+  console.log("sono arrivato update");
+  let json = {
+    Nome: burgerData.name || burgerData.Nome,
+    Pane: burgerData.patty || burgerData.Pane,
+    Proteina: burgerData.meat || burgerData.Proteina,
+    SecondaProteina:
+      burgerData.secondProtein ||
+      burgerData.secondMeat ||
+      burgerData.SecondaProteina,
+    Verdure: burgerData.veggie || burgerData.Verdure,
+    SecondaVerdura: burgerData.secondVeggie || burgerData.SecondaVerdura,
+    Salse: burgerData.sauce || burgerData.Salse,
+    SecondaSalsa: burgerData.secondSauce || burgerData.SecondaSalsa,
+    Extra: burgerData.extra || burgerData.Extra,
+    SecondoExtra: burgerData.secondExtra || burgerData.SecondoExtra,
+    Mail: burgerData.email || burgerData.Mail,
+  };
+  return await client
+    .db("BurgerDB")
+    .collection("CreatedBurgers")
+    .replaceOne({ _id: new ObjectId(id) }, json);
+}
+
+export async function removeBurgerFromDB(id) {
+  return await client
+    .db("BurgerDB")
+    .collection("CreatedBurgers")
+    .deleteOne({ _id: new ObjectId(id) });
+}
+
+export async function sendFormToDb(nome, email, input) {
+  let json = { nome: nome, email: email, input: input };
+  const result = await client
+    .db("BurgerDB")
+    .collection("FormData")
+    .insertOne(json);
+  console.log(`New form sent to database! ${JSON.stringify(result)}`);
 }
